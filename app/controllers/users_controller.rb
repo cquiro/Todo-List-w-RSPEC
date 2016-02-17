@@ -13,7 +13,8 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to todo_lists_path, success: 'Thanks for signing up!' }
+        session[:user_id] = @user.id
+        format.html { redirect_to todo_lists_path, flash: { success: 'Thanks for signing up!' } }
         format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new }
